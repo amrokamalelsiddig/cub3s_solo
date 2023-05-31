@@ -6,7 +6,7 @@
 /*   By: aelsiddi <aelsiddi@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 20:02:13 by aelsiddi          #+#    #+#             */
-/*   Updated: 2023/05/31 18:13:53 by aelsiddi         ###   ########.fr       */
+/*   Updated: 2023/05/31 19:23:43 by aelsiddi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 // # include <X11/X.h>
 // # include <X11/keysym.h>
+# include "libft/libft.h"
 # include  "mlx_linux/mlx.h"
 # include  "minilibx-linux/mlx.h"
 
@@ -41,6 +42,7 @@
 # define X_EVENT_KEY_release		3
 # define X_EVENT_KEY_EXIT			17 //exit key code
 # define COLOR 						0x00FF0000
+# define COLOR2 
 
 typedef struct map
 {
@@ -64,6 +66,7 @@ typedef struct player
 	float	rot_ang;
 	int 	side_flag; // 1 for right , -1 for left 
 	int 	walk_dir; // 1 forword , -1 backword 
+	int     step;
 } t_player;
 
 typedef struct cub
@@ -90,11 +93,20 @@ void init(t_cub *cub, char **av);
 void clear_screen();
 void render_nose(t_cub *cub);
 void rotate_right(t_cub *cub);
+
+
+
+
+
+// Libft &&&& to be removed 
 char	*ft_itoa(int n);
 static int	ft_nbrlen(int nbr);
 char	*ft_strdup(const char	*s1);
 size_t	ft_strlen(const char *s);
 static char	*ft_reverse(char *src);
 static char	*ft_handle(int z);
+char	*ft_strjoin(char const *s1, char const	*s2);
+void	*ft_calloc(size_t	count, size_t size);
+void	ft_bzero(void	*s,	size_t	n);
 
 #endif

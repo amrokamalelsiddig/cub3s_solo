@@ -6,13 +6,13 @@
 #    By: aelsiddi <aelsiddi@student.42.ae>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/22 11:06:43 by aelsiddi          #+#    #+#              #
-#    Updated: 2023/05/31 17:30:45 by aelsiddi         ###   ########.fr        #
+#    Updated: 2023/05/31 19:25:06 by aelsiddi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-SRCS =	main.c flow.c parsing_tmp.c player.c
+SRCS =	main.c flow.c parsing_tmp.c player.c libft.c raycasting.c
 RM				= rm -f
 CFLAGS			= -g -Wall -Wextra -Werror
 

@@ -6,7 +6,7 @@
 /*   By: aelsiddi <aelsiddi@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 20:24:35 by aelsiddi          #+#    #+#             */
-/*   Updated: 2023/05/31 18:22:14 by aelsiddi         ###   ########.fr       */
+/*   Updated: 2023/05/31 19:23:55 by aelsiddi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void render_nose(t_cub *cub)
 
 	cub->player->nose_x = cub->player->x + cos(cub->player->rot_ang) * cub->player->nose_l ;
 	cub->player->nose_y = cub->player->y + sin(cub->player->rot_ang) * cub->player->nose_l ;
-	printf("value of x %d\n",cub->player->x);
-	printf("value of y %d\n",cub->player->y);
-	printf("value of nose_x %i\n",cub->player->nose_x);
-	printf("value of nose_y %i\n",cub->player->nose_y);
+	// printf("value of x %d\n",cub->player->x);
+	// printf("value of y %d\n",cub->player->y);
+	// printf("value of nose_x %i\n",cub->player->nose_x);
+	// printf("value of nose_y %i\n",cub->player->nose_y);
 	int i = cub->player->nose_l;
 
 	while(i > 0)
@@ -169,6 +169,8 @@ void init(t_cub *cub, char **av)
 	cub->player->rot_speed = 10.0 * (PI/180);
 	cub->player->rot_ang =  PI/2;
 	cub->player->speed = 5;
+	cub->player->step = 0;
+
 	// cub->player->nose = cu b->map->size / 50;
 	// cub->player->nose_x = cub->player->x ;
 	// cub->player->nose_y = cub->player->y -10;
@@ -198,9 +200,9 @@ void render(t_cub *cub)
 		j = 0;
 		i++;
 	}
-	render_circle(cub,(cub->map->x*16/2),(cub->map->y*16/2),cub->map->size / 150 );
-	mlx_string_put(cub->mlx,cub->win, 20, 30,COLOR,ft_itoa(cub->player->x));
-	mlx_string_put(cub->mlx,cub->win, 20, 40,COLOR,ft_itoa(cub->player->y));
-	mlx_string_put(cub->mlx,cub->win, 20, 50,COLOR,ft_itoa(cub->player->nose_x));
-	mlx_string_put(cub->mlx,cub->win, 20, 60,COLOR,ft_itoa(cub->player->nose_y));
+	render_circle(cub,cub->player->x,cub->player->y,cub->map->size / 150 );
+	mlx_string_put(cub->mlx,cub->win, 20, 30,000000,ft_strjoin("X   : ",ft_itoa(cub->player->x)));
+	mlx_string_put(cub->mlx,cub->win, 20, 40,000000,ft_strjoin("Y   : ",ft_itoa(cub->player->y)));
+	mlx_string_put(cub->mlx,cub->win, 20, 50,000000,ft_strjoin("X_N : ",ft_itoa(cub->player->nose_x)));
+	mlx_string_put(cub->mlx,cub->win, 20, 60,000000,ft_strjoin("Y_N : ",ft_itoa(cub->player->nose_y)));
 }
