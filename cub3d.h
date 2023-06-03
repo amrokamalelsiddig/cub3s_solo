@@ -6,7 +6,7 @@
 /*   By: aelsiddi <aelsiddi@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 20:02:13 by aelsiddi          #+#    #+#             */
-/*   Updated: 2023/05/31 19:23:43 by aelsiddi         ###   ########.fr       */
+/*   Updated: 2023/06/03 20:10:10 by aelsiddi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include <string.h>
+# include <stdbool.h>
 // # include <X11/X.h>
 // # include <X11/keysym.h>
 # include "libft/libft.h"
@@ -42,7 +43,19 @@
 # define X_EVENT_KEY_release		3
 # define X_EVENT_KEY_EXIT			17 //exit key code
 # define COLOR 						0x00FF0000
-# define COLOR2 
+# define COLOR2 					0x00FF00
+
+
+typedef struct raycasting
+{
+	int					index;
+	int 				data;
+	float 				angle;
+	int  				ray_x;
+	int				ray_y;
+	bool 				Hit_it;
+} t_ray;
+
 
 typedef struct map
 {
@@ -67,18 +80,29 @@ typedef struct player
 	int 	side_flag; // 1 for right , -1 for left 
 	int 	walk_dir; // 1 forword , -1 backword 
 	int     step;
+	int 	FOV;
 } t_player;
 
 typedef struct cub
 {	
 	void	*mlx;
 	void 	*win;
+	void 	*img;
+	int 	bits_per_pixel;
+	int 	size_line;
+	int 	endian;
 	void	*wall;
 	void 	*floor;
 	int		img_h;
 	int 	img_w;
-	t_player *player;
 	t_map *map;
+	t_player *player;
+	/// 3d part;
+	void	*mlx2;
+	void 	*win2;
+	void 	*img2;
+	int 	strip_w;
+	t_ray *raycasting;
 } t_cub;
 
 
@@ -95,10 +119,7 @@ void render_nose(t_cub *cub);
 void rotate_right(t_cub *cub);
 
 
-
-
-
-// Libft &&&& to be removed 
+// Libft to be removed 
 char	*ft_itoa(int n);
 static int	ft_nbrlen(int nbr);
 char	*ft_strdup(const char	*s1);
@@ -108,5 +129,9 @@ static char	*ft_handle(int z);
 char	*ft_strjoin(char const *s1, char const	*s2);
 void	*ft_calloc(size_t	count, size_t size);
 void	ft_bzero(void	*s,	size_t	n);
+
+
+//ray cast 
+void cast_rays(t_cub *cub);
 
 #endif

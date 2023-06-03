@@ -6,7 +6,7 @@
 /*   By: aelsiddi <aelsiddi@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 20:24:35 by aelsiddi          #+#    #+#             */
-/*   Updated: 2023/05/31 19:23:55 by aelsiddi         ###   ########.fr       */
+/*   Updated: 2023/06/03 20:21:45 by aelsiddi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,19 @@ void create_grid(t_cub *cub)
 	// printf("1 - value of x %i\n",cub->tmp->x);
 	// printf("2 - value of y %i\n",cub->tmp->y);
 	cub->map->grid = malloc(sizeof(char *) * cub->map->y);
+	if (cub->map->grid == NULL)
+	{
+		perror("malloc");
+		exit(1);
+	}
 	while (j < cub->map->y)
 	{
 		cub->map->grid[j] = malloc(sizeof(char) * cub->map->x);
+		if (cub->map->grid == NULL)
+		{
+			perror("malloc");
+			exit(1);
+		}
 		i = 0;
 		while (i < cub->map->x)
 		{
@@ -98,6 +108,8 @@ void create_grid(t_cub *cub)
 		}
 		j++;
 	}
+	printf("value of j%i\n",j);
+	printf("value of i%i\n",i);
 }
 
 void print_grid(t_cub *cub)
@@ -158,7 +170,7 @@ void init(t_cub *cub, char **av)
 	cub->floor = mlx_xpm_file_to_image(cub->mlx,"xmp_file/output-onlinepngtools.xpm",&cub->img_w,&cub->img_w);	
 	create_grid(cub);
 	fill_grid(cub);
-	print_grid(cub);
+	// print_grid(cub);
 	// init_player(cub);
 	cub->player = malloc(sizeof(t_player));
 	cub->player->x = (cub->map->x*16/2);
@@ -168,9 +180,11 @@ void init(t_cub *cub, char **av)
 	cub->player->speed = 10.0;
 	cub->player->rot_speed = 10.0 * (PI/180);
 	cub->player->rot_ang =  PI/2;
-	cub->player->speed = 5;
-	cub->player->step = 0;
-
+	cub->player->speed = 10 ;
+	cub->player->step = 4;
+	cub->player->FOV = 60 * (PI/180);
+	cub->strip_w = 5;
+	
 	// cub->player->nose = cu b->map->size / 50;
 	// cub->player->nose_x = cub->player->x ;
 	// cub->player->nose_y = cub->player->y -10;
@@ -201,6 +215,8 @@ void render(t_cub *cub)
 		i++;
 	}
 	render_circle(cub,cub->player->x,cub->player->y,cub->map->size / 150 );
+	cast_rays(cub);
+	
 	mlx_string_put(cub->mlx,cub->win, 20, 30,000000,ft_strjoin("X   : ",ft_itoa(cub->player->x)));
 	mlx_string_put(cub->mlx,cub->win, 20, 40,000000,ft_strjoin("Y   : ",ft_itoa(cub->player->y)));
 	mlx_string_put(cub->mlx,cub->win, 20, 50,000000,ft_strjoin("X_N : ",ft_itoa(cub->player->nose_x)));
